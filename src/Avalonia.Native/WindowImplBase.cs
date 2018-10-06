@@ -22,11 +22,13 @@ namespace Avalonia.Native
         private Size _savedLogicalSize;
         private Size _lastRenderedLogicalSize;
         private double _savedScaling;
+        private readonly IDragDropDevice _dragDevice;
 
         public WindowBaseImpl()
         {
             _keyboard = AvaloniaLocator.Current.GetService<IKeyboardDevice>();
             _mouse = AvaloniaLocator.Current.GetService<IMouseDevice>();
+            _dragDevice = AvaloniaLocator.Current.GetService<IDragDropDevice>();
         }
 
         protected void Init(IAvnWindowBase window, IAvnScreens screens)
@@ -170,6 +172,11 @@ namespace Avalonia.Native
                     _parent.Paint?.Invoke(new Rect());
                 Dispatcher.UIThread.RunJobs(DispatcherPriority.Render);
             }
+
+            public AvnDragDropEffects RawDragEvent(AvnRawDragEventType type, AvnPoint point, IAvnDataObject info, AvnDragDropEffects operation, AvnInputModifiers modifiers)
+            {
+                return _parent.RawDragEvent(type, point, info, operation, modifiers);
+            }
         }
 
         public void Activate()
@@ -209,6 +216,20 @@ namespace Avalonia.Native
                     Input?.Invoke(new RawMouseEventArgs(_mouse, timeStamp, _inputRoot, (RawMouseEventType)type, point.ToAvaloniaPoint(), (InputModifiers)modifiers));
                     break;
             }
+        }
+
+        public AvnDragDropEffects RawDragEvent(AvnRawDragEventType type, AvnPoint point, IAvnDataObject info, AvnDragDropEffects operation, AvnInputModifiers modifiers)
+        {
+            var args = new RawDragEvent(_dragDevice,
+                                        (RawDragEventType)type,
+                                        _inputRoot,
+                                        new Point(point.X, point.Y),
+                                        new DraggingInfo(info),
+                                        (DragDropEffects)operation,
+                                        (InputModifiers)modifiers);
+            Input?.Invoke(args);
+
+            return (AvnDragDropEffects)args.Effects;
         }
 
         public void Resize(Size clientSize)

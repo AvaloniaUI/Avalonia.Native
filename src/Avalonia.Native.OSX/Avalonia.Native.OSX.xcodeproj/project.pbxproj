@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37364451215842830085FC33 /* DragSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3736444E215842830085FC33 /* DragSource.mm */; };
+		37364452215842830085FC33 /* DraggingInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3736444F215842830085FC33 /* DraggingInfo.hpp */; };
+		37364453215842830085FC33 /* DraggingInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37364450215842830085FC33 /* DraggingInfo.mm */; };
 		37A517B32159597E00FBA241 /* Screens.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37A517B22159597E00FBA241 /* Screens.mm */; };
 		37C09D8821580FE4006A6758 /* SystemDialogs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37C09D8721580FE4006A6758 /* SystemDialogs.mm */; };
 		37E2330F21583241000CB7E2 /* KeyTransform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37E2330E21583241000CB7E2 /* KeyTransform.mm */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3736444E215842830085FC33 /* DragSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragSource.mm; sourceTree = "<group>"; };
+		3736444F215842830085FC33 /* DraggingInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DraggingInfo.hpp; sourceTree = "<group>"; };
+		37364450215842830085FC33 /* DraggingInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DraggingInfo.mm; sourceTree = "<group>"; };
 		379860FE214DA0C000CD0246 /* KeyTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyTransform.h; sourceTree = "<group>"; };
 		379A4506214D0F6500CC143D /* headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = headers; path = ../headers; sourceTree = "<group>"; };
 		37A517B22159597E00FBA241 /* Screens.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Screens.mm; sourceTree = "<group>"; };
@@ -64,6 +70,9 @@
 				37E2330E21583241000CB7E2 /* KeyTransform.mm */,
 				AB661C1F2148286E00291242 /* window.mm */,
 				37C09D8A21581EF2006A6758 /* window.h */,
+				3736444F215842830085FC33 /* DraggingInfo.hpp */,
+				37364450215842830085FC33 /* DraggingInfo.mm */,
+				3736444E215842830085FC33 /* DragSource.mm */,
 				AB00E4F62147CA920032A60A /* main.mm */,
 				37A517B22159597E00FBA241 /* Screens.mm */,
 				37C09D8721580FE4006A6758 /* SystemDialogs.mm */,
@@ -87,6 +96,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37364452215842830085FC33 /* DraggingInfo.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +126,7 @@
 		AB7A61E72147C814003C5833 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Avalonia;
 				TargetAttributes = {
 					AB7A61EE2147C814003C5833 = {
@@ -149,6 +159,8 @@
 			files = (
 				5B8BD94F215BFEA6005ED2A7 /* clipboard.mm in Sources */,
 				AB8F7D6B21482D7F0057DBA5 /* platformthreading.mm in Sources */,
+				37364451215842830085FC33 /* DragSource.mm in Sources */,
+				37364453215842830085FC33 /* DraggingInfo.mm in Sources */,
 				37E2330F21583241000CB7E2 /* KeyTransform.mm in Sources */,
 				37A517B32159597E00FBA241 /* Screens.mm in Sources */,
 				AB00E4F72147CA920032A60A /* main.mm in Sources */,
@@ -170,15 +182,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -218,15 +238,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

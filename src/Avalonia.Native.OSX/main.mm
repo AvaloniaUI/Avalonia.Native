@@ -101,6 +101,12 @@ public:
         return  S_OK;
     }
     
+    virtual HRESULT CreatePlatformDragSource (IAvnPlatformDragSource** ppv)
+    {
+        //*ppv =
+        return S_OK;
+    }
+    
     virtual HRESULT CreateScreens (IAvnScreens** ppv)
     {
         *ppv = ::CreateScreens ();

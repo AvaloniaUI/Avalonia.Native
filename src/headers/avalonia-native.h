@@ -1,4 +1,5 @@
 #include "com.h"
+#include <stdint.h>
 #include "key.h"
 
 #define AVNCOM(name, id) COMINTERFACE(name, 2e2cda0a, 9ae5, 4f1b, 8e, 20, 08, 1a, 04, 27, 9f, id)
@@ -6,6 +7,9 @@
 struct IAvnWindowEvents;
 struct IAvnWindow;
 struct IAvnPopup;
+struct IAvnPlatformDragSource;
+struct IAvnPlatformDragSourceEvents;
+struct IAvnDataObject;
 struct IAvnMacOptions;
 struct IAvnPlatformThreadingInterface;
 struct IAvnSystemDialogEvents;
@@ -89,6 +93,22 @@ enum AvnInputModifiers
     MiddleMouseButton = 64
 };
 
+enum AvnDragDropEffects
+{
+    AvnDragDropNone = 0x0,
+    AvnDragDropCopy = 0x1,
+    AvnDragDropMove = 0x2,
+    AvnDragDropLink = 0x4
+};
+
+enum AvnRawDragEventType
+{
+    DragEnter,
+    DragOver,
+    DragLeave,
+    Drop
+};
+
 enum AvnWindowState
 {
     Normal,
@@ -107,6 +127,7 @@ public:
     virtual HRESULT CreateSystemDialogs (IAvnSystemDialogs** ppv) = 0;
     virtual HRESULT CreateScreens (IAvnScreens** ppv) = 0;
     virtual HRESULT CreateClipboard(IAvnClipboard** ppv) = 0;
+    virtual HRESULT CreatePlatformDragSource (IAvnPlatformDragSource** ppv) = 0;
 };
 
 AVNCOM(IAvnWindowBase, 02) : virtual IUnknown
@@ -156,6 +177,11 @@ AVNCOM(IAvnWindowBaseEvents, 05) : IUnknown
                                 AvnInputModifiers modifiers,
                                 AvnPoint point,
                                 AvnVector delta) = 0;
+    virtual AvnDragDropEffects RawDragEvent (AvnRawDragEventType type,
+                               AvnPoint point,
+                               IAvnDataObject* info,
+                               AvnDragDropEffects operation,
+                               AvnInputModifiers modifiers) = 0;
     virtual bool RawKeyEvent (AvnRawKeyEventType type, unsigned int timeStamp, AvnInputModifiers modifiers, unsigned int key) = 0;
     virtual bool RawTextInputEvent (unsigned int timeStamp, const char* text) = 0;
     virtual void ScalingChanged(double scaling) = 0;
@@ -238,6 +264,35 @@ AVNCOM(IAvnClipboard, 0f) : virtual IUnknown
     virtual HRESULT GetText (void** retOut) = 0;
     virtual HRESULT SetText (char* text) = 0;
     virtual HRESULT Clear() = 0;
+};
+
+AVNCOM(IAvnPlatformDragSource, 10) : virtual IUnknown
+{
+    virtual void DoDragDrop(IAvnDataObject* data, AvnDragDropEffects allowedEffects) = 0;
+};
+
+AVNCOM(IAvnPlatformDragSourceEvents, 11) : virtual IUnknown
+{
+    virtual void OnDragDropCompleted () = 0;
+};
+
+AVNCOM(IAvnDataObject, 12) : virtual IUnknown
+{
+    virtual HRESULT Contains(const wchar_t* dataFormat, bool* retOut) = 0;
+    
+    virtual HRESULT Get(const wchar_t* dataFormat, void** retOut) = 0;
+    
+    /**
+     * Gets the data formats as strings.
+     * The user calls this method twice, the first time ret is nullptr and the method returns the number of
+     * strings to be returned. This is known as query mode. The second time the user calls it, ret is not
+     * nullptr and will be the pointer will be set.
+     */
+    virtual HRESULT GetDataFormats (uint32_t* outNumStrings, void** retBuf) = 0;
+    
+    virtual HRESULT GetFileNames(uint32_t* outNumStrings, uint32_t** bufOut)= 0;
+    
+    virtual HRESULT GetText(void** outPtr)= 0;
 };
 
 extern "C" IAvaloniaNativeFactory* CreateAvaloniaNative();
